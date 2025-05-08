@@ -100,5 +100,52 @@
       <h2>Proactivanet</h2>
       <p><span class="label">Status:</span> <span id="statusProactiva">Abierto</span></p>
       <p><span class="label">Categoría:</span> <span id="catProactiva">Redes</span></p>
-      <p><span class="label">Eviden
+      <p><span class="label">Evidencias:</span> adjunto.pdf</p>
 
+      <button onclick="updateFromProactiva('Cerrado')">Cambiar a Cerrado</button>
+      <button onclick="updateFromProactiva('Abierto')">Cambiar a Abierto</button>
+
+      <button onclick="updateCatFromProactiva('Redes')">Categoría: Redes</button>
+      <button onclick="updateCatFromProactiva('Soporte')">Categoría: Soporte</button>
+      <button onclick="updateCatFromProactiva('Hardware')">Categoría: Hardware</button>
+    </div>
+  </div>
+
+  <div class="log" id="log">
+    <strong>Log de sincronización:</strong><br>
+  </div>
+
+  <script>
+    function logMessage(message) {
+      const now = new Date().toLocaleTimeString();
+      const log = document.getElementById("log");
+      log.innerHTML += `[${now}] ${message}<br>`;
+      log.scrollTop = log.scrollHeight;
+    }
+
+    function updateFromSysAid(newStatus) {
+      document.getElementById("statusSysAid").textContent = newStatus;
+      document.getElementById("statusProactiva").textContent = newStatus;
+      logMessage(`SysAid cambió estado a '${newStatus}'. API notificó a Proactivanet.`);
+    }
+
+    function updateFromProactiva(newStatus) {
+      document.getElementById("statusProactiva").textContent = newStatus;
+      document.getElementById("statusSysAid").textContent = newStatus;
+      logMessage(`Proactivanet cambió estado a '${newStatus}'. API notificó a SysAid.`);
+    }
+
+    function updateCatFromSysAid(newCat) {
+      document.getElementById("catSysAid").textContent = newCat;
+      document.getElementById("catProactiva").textContent = newCat;
+      logMessage(`SysAid cambió categoría a '${newCat}'. API sincronizó con Proactivanet.`);
+    }
+
+    function updateCatFromProactiva(newCat) {
+      document.getElementById("catProactiva").textContent = newCat;
+      document.getElementById("catSysAid").textContent = newCat;
+      logMessage(`Proactivanet cambió categoría a '${newCat}'. API sincronizó con SysAid.`);
+    }
+  </script>
+</body>
+</html>
