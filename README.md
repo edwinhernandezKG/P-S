@@ -13,12 +13,46 @@
       padding: 30px;
     }
 
+    .example-container {
+      display: flex;
+      justify-content: space-around;
+      width: 90%;
+      gap: 40px;
+      margin-bottom: 30px;
+    }
+
+    .example {
+      background: #ffffff;
+      border: 1px solid #ddd;
+      border-radius: 10px;
+      padding: 15px;
+      width: 300px;
+      box-shadow: 0 0 6px rgba(0,0,0,0.1);
+      font-size: 14px;
+    }
+
+    .example h3 {
+      margin-top: 0;
+      color: #0077b6;
+      text-align: center;
+    }
+
+    .screenshot {
+      background: #d9edf7;
+      padding: 10px;
+      border-radius: 5px;
+      height: 140px;
+      overflow: hidden;
+      font-family: monospace;
+      white-space: pre-wrap;
+    }
+
     .container {
       display: flex;
       justify-content: space-around;
       align-items: flex-start;
       width: 90%;
-      margin-top: 40px;
+      margin-top: 20px;
       gap: 40px;
     }
 
@@ -77,6 +111,33 @@
   <h1>Integración bidireccional entre SysAid y Proactivanet</h1>
   <p>Simulación de estado y categoría sincronizados por API.</p>
 
+  <!-- Vistas simuladas de SysAid y Proactivanet -->
+  <div class="example-container">
+    <div class="example">
+      <h3>Vista de ejemplo: SysAid</h3>
+      <div class="screenshot">
+Solicitud #: 12489  
+Estado: <span id="statusEjemploSysAid">Abierto</span>  
+Categoría: <span id="catEjemploSysAid">Redes</span>  
+Descripción:  
+Problemas de conectividad en el switch principal.  
+Adjunto: evidencia_switch.pdf
+      </div>
+    </div>
+    <div class="example">
+      <h3>Vista de ejemplo: Proactivanet</h3>
+      <div class="screenshot">
+Incidente ID: 785-PRT  
+Estado: <span id="statusEjemploProactiva">Abierto</span>  
+Categoría: <span id="catEjemploProactiva">Redes</span>  
+Notas:  
+Usuario reporta caída del servicio.  
+Evidencia: evidencia_switch.pdf
+      </div>
+    </div>
+  </div>
+
+  <!-- Área de sincronización interactiva -->
   <div class="container">
     <!-- SysAid -->
     <div class="box" id="sysaid">
@@ -111,10 +172,12 @@
     </div>
   </div>
 
+  <!-- Log de sincronización -->
   <div class="log" id="log">
     <strong>Log de sincronización:</strong><br>
   </div>
 
+  <!-- Script de sincronización -->
   <script>
     function logMessage(message) {
       const now = new Date().toLocaleTimeString();
@@ -126,26 +189,35 @@
     function updateFromSysAid(newStatus) {
       document.getElementById("statusSysAid").textContent = newStatus;
       document.getElementById("statusProactiva").textContent = newStatus;
+      document.getElementById("statusEjemploSysAid").textContent = newStatus;
+      document.getElementById("statusEjemploProactiva").textContent = newStatus;
       logMessage(`SysAid cambió estado a '${newStatus}'. API notificó a Proactivanet.`);
     }
 
     function updateFromProactiva(newStatus) {
       document.getElementById("statusProactiva").textContent = newStatus;
       document.getElementById("statusSysAid").textContent = newStatus;
+      document.getElementById("statusEjemploProactiva").textContent = newStatus;
+      document.getElementById("statusEjemploSysAid").textContent = newStatus;
       logMessage(`Proactivanet cambió estado a '${newStatus}'. API notificó a SysAid.`);
     }
 
     function updateCatFromSysAid(newCat) {
       document.getElementById("catSysAid").textContent = newCat;
       document.getElementById("catProactiva").textContent = newCat;
+      document.getElementById("catEjemploSysAid").textContent = newCat;
+      document.getElementById("catEjemploProactiva").textContent = newCat;
       logMessage(`SysAid cambió categoría a '${newCat}'. API sincronizó con Proactivanet.`);
     }
 
     function updateCatFromProactiva(newCat) {
       document.getElementById("catProactiva").textContent = newCat;
       document.getElementById("catSysAid").textContent = newCat;
+      document.getElementById("catEjemploProactiva").textContent = newCat;
+      document.getElementById("catEjemploSysAid").textContent = newCat;
       logMessage(`Proactivanet cambió categoría a '${newCat}'. API sincronizó con SysAid.`);
     }
   </script>
+
 </body>
 </html>
