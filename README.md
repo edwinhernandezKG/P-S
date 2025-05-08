@@ -2,149 +2,103 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8">
-  <title>Integración Proactivanet & SysAid</title>
+  <title>Integración SysAid ↔ Proactivanet</title>
   <style>
     body {
-      margin: 0;
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background-color: #f4f6f8;
+      font-family: Arial, sans-serif;
+      background: #f4f6f8;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 30px;
     }
 
-    .login-container, .app-container {
-      max-width: 600px;
-      margin: 80px auto;
-      padding: 40px;
-      background-color: white;
-      border-radius: 8px;
-      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    .container {
+      display: flex;
+      justify-content: space-around;
+      align-items: flex-start;
+      width: 90%;
+      margin-top: 40px;
+      gap: 40px;
     }
 
-    h1, h2 {
-      color: #2c3e50;
+    .box {
+      background: white;
+      padding: 20px;
+      border-radius: 10px;
+      width: 300px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+
+    .box h2 {
       text-align: center;
+      color: #0077b6;
+    }
+
+    .arrow {
+      font-size: 50px;
+      color: #00b4d8;
+      margin-top: 100px;
+    }
+
+    .log {
+      margin-top: 30px;
+      background: #e9ecef;
+      padding: 10px;
+      border-radius: 8px;
+      font-family: monospace;
+      height: 180px;
+      width: 90%;
+      overflow-y: auto;
     }
 
     button {
-      width: 100%;
-      padding: 12px;
-      background-color: #2c3e50;
+      margin: 5px 0;
+      padding: 8px 12px;
+      background: #0077b6;
       color: white;
       border: none;
-      border-radius: 4px;
-      font-size: 16px;
+      border-radius: 5px;
       cursor: pointer;
+      width: 100%;
     }
 
     button:hover {
-      background-color: #34495e;
+      background: #023e8a;
     }
 
-    .ticket {
-      padding: 10px;
-      background-color: #ecf0f1;
-      border: 1px solid #bdc3c7;
-      border-radius: 4px;
-      margin-bottom: 10px;
-      cursor: pointer;
-    }
-
-    .ticket:hover {
-      background-color: #dfe6e9;
-    }
-
-    select, textarea {
-      width: 100%;
-      padding: 10px;
-      margin-top: 8px;
-      margin-bottom: 16px;
-      border: 1px solid #ccc;
-      border-radius: 4px;
-    }
-
-    #detalleTicket {
-      margin-top: 20px;
+    .label {
+      font-weight: bold;
     }
   </style>
 </head>
 <body>
 
-  <!-- LOGIN SIMULADO -->
-  <div class="login-container" id="loginScreen">
-    <h1>Bienvenido</h1>
-    <p style="text-align:center;">Haz clic para acceder al panel integrado.</p>
-    <button onclick="iniciarSesion()">Ingresar</button>
-  </div>
+  <h1>Integración bidireccional entre SysAid y Proactivanet</h1>
+  <p>Simulación de estado y categoría sincronizados por API.</p>
 
-  <!-- APP PRINCIPAL -->
-  <div class="app-container" id="appScreen" style="display: none;">
-    <h1>Panel Integrado</h1>
-    <h2>Tickets Proactivanet / SysAid</h2>
+  <div class="container">
+    <!-- SysAid -->
+    <div class="box" id="sysaid">
+      <h2>SysAid</h2>
+      <p><span class="label">Status:</span> <span id="statusSysAid">Abierto</span></p>
+      <p><span class="label">Categoría:</span> <span id="catSysAid">Redes</span></p>
+      <p><span class="label">Documentación:</span> adjunto.pdf</p>
 
-    <div id="listaTickets">
-      <div class="ticket" onclick="mostrarDetalle(1)">Ticket #001 - Problema de red</div>
-      <div class="ticket" onclick="mostrarDetalle(2)">Ticket #002 - Error de software</div>
+      <button onclick="updateFromSysAid('Cerrado')">Cambiar a Cerrado</button>
+      <button onclick="updateFromSysAid('Abierto')">Cambiar a Abierto</button>
+
+      <button onclick="updateCatFromSysAid('Redes')">Categoría: Redes</button>
+      <button onclick="updateCatFromSysAid('Soporte')">Categoría: Soporte</button>
+      <button onclick="updateCatFromSysAid('Hardware')">Categoría: Hardware</button>
     </div>
 
-    <div id="detalleTicket" style="display: none;">
-      <h2>Detalle del Ticket</h2>
-      <p><strong>ID SysAid:</strong> <span id="sysaidId"></span></p>
-      <p><strong>ID Proactivanet:</strong> <span id="proactId"></span></p>
+    <div class="arrow">⇄</div>
 
-      <label for="estado">Estado:</label>
-      <select id="estado" onchange="sincronizar('estado')">
-        <option value="Abierto">Abierto</option>
-        <option value="En Proceso">En Proceso</option>
-        <option value="Cerrado">Cerrado</option>
-      </select>
+    <!-- Proactivanet -->
+    <div class="box" id="proactivanet">
+      <h2>Proactivanet</h2>
+      <p><span class="label">Status:</span> <span id="statusProactiva">Abierto</span></p>
+      <p><span class="label">Categoría:</span> <span id="catProactiva">Redes</span></p>
+      <p><span class="label">Eviden
 
-      <label for="categoria">Categoría:</label>
-      <select id="categoria" onchange="sincronizar('categoria')">
-        <option value="Red">Red</option>
-        <option value="Software">Software</option>
-        <option value="Hardware">Hardware</option>
-      </select>
-
-      <label for="evidencia">Evidencia:</label>
-      <textarea id="evidencia" rows="4" onchange="sincronizar('evidencia')"></textarea>
-    </div>
-  </div>
-
-  <script>
-    const tickets = {
-      1: {
-        sysaidId: 'SYS-1001',
-        proactId: 'PRO-2001',
-        estado: 'Abierto',
-        categoria: 'Red',
-        evidencia: 'Captura de pantalla del error.'
-      },
-      2: {
-        sysaidId: 'SYS-1002',
-        proactId: 'PRO-2002',
-        estado: 'En Proceso',
-        categoria: 'Software',
-        evidencia: 'Logs adjuntos.'
-      }
-    };
-
-    function iniciarSesion() {
-      document.getElementById('loginScreen').style.display = 'none';
-      document.getElementById('appScreen').style.display = 'block';
-    }
-
-    function mostrarDetalle(id) {
-      const ticket = tickets[id];
-      document.getElementById('sysaidId').innerText = ticket.sysaidId;
-      document.getElementById('proactId').innerText = ticket.proactId;
-      document.getElementById('estado').value = ticket.estado;
-      document.getElementById('categoria').value = ticket.categoria;
-      document.getElementById('evidencia').value = ticket.evidencia;
-
-      document.getElementById('detalleTicket').style.display = 'block';
-    }
-
-    function sincronizar(campo) {
-      const valor = document.getElementById(campo).value;
-      alert(`Simulación: sincronizando campo "${campo}" con valor "${valor}" en SysAid y Proactivanet`);
-    }
-  </script>
