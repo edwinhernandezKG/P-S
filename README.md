@@ -7,23 +7,26 @@
     html, body {
       margin: 0;
       padding: 0;
-      overflow: hidden;
       height: 100%;
+      width: 100%;
+      overflow: hidden;
     }
 
     iframe {
-      width: 100%;
-      height: 100%;
-      border: none;
-      display: block;
-    }
-
-    #loadingScreen {
       position: absolute;
       top: 0;
       left: 0;
-      width: 100%;
-      height: 100%;
+      width: 100vw;
+      height: 100vh;
+      border: none;
+    }
+
+    #loadingScreen {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
       background-color: black;
       color: white;
       display: flex;
@@ -56,13 +59,12 @@
     const loadingScreen = document.getElementById("loadingScreen");
 
     function loadDashboard(index) {
-      loadingScreen.classList.remove("hidden"); // Mostrar pantalla negra
+      loadingScreen.classList.remove("hidden");
 
       frame.onload = () => {
-        // Mantener la pantalla negra visible por 8 segundos
         setTimeout(() => {
           loadingScreen.classList.add("hidden");
-        }, 8000);
+        }, 8000); // Pantalla negra visible 8 segundos
       };
 
       frame.src = dashboards[index] + "&cachebuster=" + new Date().getTime();
@@ -74,8 +76,7 @@
     setInterval(() => {
       current = (current + 1) % dashboards.length;
       loadDashboard(current);
-    }, 20000); // Cambiar cada 20 segundos (8 de carga + 12 de visualización)
+    }, 20000); // Cada 20 segundos (8 de carga + 12 de visualización)
   </script>
 </body>
 </html>
-
