@@ -73,7 +73,7 @@
 </head>
 <body>
   <div id="loadingScreen">
-    <img class="logo" src="https://i.postimg.cc/5Nrppq1D/c947d0-eadc0d6e3f3c4184a5f64991dc4338a1-mv2-removebg-preview-1.jpg" alt="Logo">
+    <img class="logo" src="https://i.postimg.cc/t4m8m9pR/c947d0-eadc0d6e3f3c4184a5f64991dc4338a1-mv2-removebg-preview-2.jpg" alt="Logo">
     <div>Cargando dashboard...</div>
     <div class="spinner"></div>
   </div>
