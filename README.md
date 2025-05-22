@@ -4,11 +4,17 @@
   <meta charset="UTF-8">
   <title>Mis Dashboards Power BI</title>
   <style>
+    * {
+      box-sizing: border-box;
+    }
+
     html, body {
       margin: 0;
       padding: 0;
       height: 100%;
       width: 100%;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #000;
       overflow: hidden;
     }
 
@@ -27,9 +33,10 @@
       left: 0;
       width: 100vw;
       height: 100vh;
-      background-color: black;
+      background-color: #000;
       color: white;
       display: flex;
+      flex-direction: column;
       align-items: center;
       justify-content: center;
       font-size: 30px;
@@ -42,10 +49,29 @@
       opacity: 0;
       pointer-events: none;
     }
+
+    .spinner {
+      margin-top: 20px;
+      border: 4px solid #ffffff30;
+      border-top: 4px solid white;
+      border-radius: 50%;
+      width: 40px;
+      height: 40px;
+      animation: spin 1s linear infinite;
+    }
+
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
   </style>
 </head>
 <body>
-  <div id="loadingScreen">Cargando dashboard...</div>
+  <div id="loadingScreen">
+    <div>Cargando dashboard...</div>
+    <div class="spinner"></div>
+  </div>
+
   <iframe id="dashboardFrame"></iframe>
 
   <script>
@@ -67,7 +93,7 @@
       frame.onload = () => {
         setTimeout(() => {
           loadingScreen.classList.add("hidden");
-        }, 8000); // Mantener pantalla negra visible por 8 segundos
+        }, 8000); // Mostrar pantalla de carga por 8 segundos
       };
 
       frame.src = dashboards[index] + "&cachebuster=" + new Date().getTime();
@@ -79,7 +105,7 @@
       setInterval(() => {
         current = (current + 1) % dashboards.length;
         loadDashboard(current);
-      }, 600000); // 10 minutos = 600000 ms
+      }, 600000); // Cada 10 minutos
     }
 
     startRotation();
