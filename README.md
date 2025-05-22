@@ -53,6 +53,8 @@
     .logo {
       max-width: 160px;
       margin-bottom: 1px;
+      border: none;
+      outline: none;
     }
 
     .spinner {
@@ -118,7 +120,4 @@
   </script>
 </body>
 </html>
-
-
-
 
