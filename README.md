@@ -35,7 +35,7 @@
       font-size: 24px;
       z-index: 9999;
       opacity: 1;
-      transition: opacity 0.3s ease;
+      transition: opacity 0.5s ease;
     }
 
     #loadingScreen.hidden {
@@ -50,8 +50,11 @@
 
   <script>
     const dashboards = [
-      "https://app.powerbi.com/view?r=eyJrIjoiY2IxMGU0ZDAtNDQ5MC00Y2Y3LTk2MDItZGJmMDRjNDhhZTJjIiwidCI6ImIxM2NlNGM5LTJiZTYtNDg0NC04Y2Q5LTYwOTcyMGFmYWY5YiJ9",
-      "https://app.powerbi.com/view?r=eyJrIjoiODk1MmFjZWYtY2IxYy00YzI0LTg5ODUtMDAzOTg1MTQ4ODMwIiwidCI6ImIxM2NlNGM5LTJiZTYtNDg0NC04Y2Q5LTYwOTcyMGFmYWY5YiJ9"
+      "https://app.powerbi.com/view?r=eyJrIjoiZmM4OGU2MWQtZDRhZS00YzU4LWEzMWEtMTBhMjhlYmY0MzQzIiwidCI6ImIxM2NlNGM5LTJiZTYtNDg0NC04Y2Q5LTYwOTcyMGFmYWY5YiJ9",
+      "https://app.powerbi.com/view?r=eyJrIjoiNzkyYjQwZGEtNjMyYy00YjMyLTg1ZTktM2JjMWY4NGY5YTA4IiwidCI6ImIxM2NlNGM5LTJiZTYtNDg0NC04Y2Q5LTYwOTcyMGFmYWY5YiJ9",
+      "https://app.powerbi.com/view?r=eyJrIjoiODk1MmFjZWYtY2IxYy00YzI0LTg5ODUtMDAzOTg1MTQ4ODMwIiwidCI6ImIxM2NlNGM5LTJiZTYtNDg0NC04Y2Q5LTYwOTcyMGFmYWY5YiJ9",
+      "https://app.powerbi.com/view?r=eyJrIjoiNDMxNmU2OTUtOThhMC00NDMyLThjZmQtMmVlMTZmYWVmMDIwIiwidCI6ImIxM2NlNGM5LTJiZTYtNDg0NC04Y2Q5LTYwOTcyMGFmYWY5YiJ9",
+      "https://app.powerbi.com/view?r=eyJrIjoiY2IxMGU0ZDAtNDQ5MC00Y2Y3LTk2MDItZGJmMDRjNDhhZTJjIiwidCI6ImIxM2NlNGM5LTJiZTYtNDg0NC04Y2Q5LTYwOTcyMGFmYWY5YiJ9"
     ];
 
     let current = 0;
@@ -64,19 +67,22 @@
       frame.onload = () => {
         setTimeout(() => {
           loadingScreen.classList.add("hidden");
-        }, 8000); // Pantalla negra visible 8 segundos
+        }, 8000); // Mantener pantalla negra visible por 8 segundos
       };
 
       frame.src = dashboards[index] + "&cachebuster=" + new Date().getTime();
     }
 
-    // Cargar el primer dashboard
-    loadDashboard(current);
-
-    setInterval(() => {
-      current = (current + 1) % dashboards.length;
+    function startRotation() {
       loadDashboard(current);
-    }, 20000); // Cada 20 segundos (8 de carga + 12 de visualización)
+
+      setInterval(() => {
+        current = (current + 1) % dashboards.length;
+        loadDashboard(current);
+      }, 600000); // 10 minutos = 600000 ms
+    }
+
+    startRotation();
   </script>
 </body>
 </html>
