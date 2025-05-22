@@ -39,7 +39,7 @@
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      font-size: 24px;
+      font-size: 30px;
       z-index: 9999;
       opacity: 1;
       transition: opacity 0.5s ease;
@@ -48,11 +48,6 @@
     #loadingScreen.hidden {
       opacity: 0;
       pointer-events: none;
-    }
-
-    .logo {
-      width: 160px;
-      margin-bottom: 20px;
     }
 
     .spinner {
@@ -73,8 +68,6 @@
 </head>
 <body>
   <div id="loadingScreen">
-    <img src="![c947d0_eadc0d6e3f3c4184a5f64991dc4338a1_mv2-removebg-preview](https://github.com/user-attachments/assets/fd278f8b-4ed0-4bf7-9bb3-9a2f9fe8424c)
-" alt="Logo" class="logo">
     <div>Cargando dashboard...</div>
     <div class="spinner"></div>
   </div>
