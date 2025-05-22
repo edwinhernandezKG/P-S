@@ -32,7 +32,7 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 24px;
+      font-size: 30px;
       z-index: 9999;
       opacity: 1;
       transition: opacity 0.5s ease;
