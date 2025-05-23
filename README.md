@@ -76,7 +76,7 @@
 <body>
   <div id="loadingScreen">
     <img class="logo" src="https://i.ibb.co/kgSt3mNr/c947d0-eadc0d6e3f3c4184a5f64991dc4338a1-mv2-removebg-preview-1.png" alt="Logo">
-    <div>Cargando dashboard...</div>
+    <div>Actualizando dashboard...</div>
     <div class="spinner"></div>
   </div>
 
