@@ -101,7 +101,7 @@
       frame.onload = () => {
         setTimeout(() => {
           loadingScreen.classList.add("hidden");
-        }, 8000); // Mostrar pantalla de carga por 8 segundos
+        }, 6000); // Mostrar pantalla de carga por 6 segundos
       };
 
       frame.src = dashboards[index] + "&cachebuster=" + new Date().getTime();
