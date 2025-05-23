@@ -1,3 +1,5 @@
+Siguiente HTML pero que la pantalla en negro que pasa cuando cambia de dashboar dure 6 segundos
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -98,12 +100,13 @@
     function loadDashboard(index) {
       loadingScreen.classList.remove("hidden");
 
-      frame.onload = null;
-      frame.src = dashboards[index] + "&cachebuster=" + new Date().getTime();
+      frame.onload = () => {
+        setTimeout(() => {
+          loadingScreen.classList.add("hidden");
+        }, 8000); // Mostrar pantalla de carga por 8 segundos
+      };
 
-      setTimeout(() => {
-        loadingScreen.classList.add("hidden");
-      }, 7000); // 7 segundos
+      frame.src = dashboards[index] + "&cachebuster=" + new Date().getTime();
     }
 
     function startRotation() {
