@@ -1,5 +1,3 @@
-Siguiente HTML pero que la pantalla en negro que pasa cuando cambia de dashboar dure 6 segundos
-
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -122,3 +120,5 @@ Siguiente HTML pero que la pantalla en negro que pasa cuando cambia de dashboar 
   </script>
 </body>
 </html>
+
+
