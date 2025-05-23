@@ -98,13 +98,16 @@
     function loadDashboard(index) {
       loadingScreen.classList.remove("hidden");
 
-      frame.onload = () => {
-        setTimeout(() => {
-          loadingScreen.classList.add("hidden");
-        }, 6000); // Mostrar pantalla de carga por 6 segundos
-      };
+      // Limpia cualquier evento anterior para evitar duplicación
+      frame.onload = null;
 
+      // Carga el nuevo dashboard
       frame.src = dashboards[index] + "&cachebuster=" + new Date().getTime();
+
+      // Oculta la pantalla de carga después de 6 segundos
+      setTimeout(() => {
+        loadingScreen.classList.add("hidden");
+      }, 6000);
     }
 
     function startRotation() {
@@ -113,7 +116,7 @@
       setInterval(() => {
         current = (current + 1) % dashboards.length;
         loadDashboard(current);
-      }, 600000); // Cada 10 minutos
+      }, 600000); // Cambia cada 10 minutos (600000 ms)
     }
 
     startRotation();
