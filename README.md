@@ -98,16 +98,12 @@
     function loadDashboard(index) {
       loadingScreen.classList.remove("hidden");
 
-      // Limpia cualquier evento anterior para evitar duplicación
       frame.onload = null;
-
-      // Carga el nuevo dashboard
       frame.src = dashboards[index] + "&cachebuster=" + new Date().getTime();
 
-      // Oculta la pantalla de carga después de 6 segundos
       setTimeout(() => {
         loadingScreen.classList.add("hidden");
-      }, 6000);
+      }, 7000); // 7 segundos
     }
 
     function startRotation() {
@@ -116,11 +112,10 @@
       setInterval(() => {
         current = (current + 1) % dashboards.length;
         loadDashboard(current);
-      }, 600000); // Cambia cada 10 minutos (600000 ms)
+      }, 600000); // Cada 10 minutos
     }
 
     startRotation();
   </script>
 </body>
 </html>
-
