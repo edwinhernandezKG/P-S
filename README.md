@@ -74,17 +74,21 @@
     .floating-text {
       position: absolute;
       color: white;
-      font-size: 28px;
+      font-size: 34px;
       opacity: 0;
       animation: fadeInOut 6s ease-in-out infinite;
       text-align: center;
-      width: 480px;
+      width: 520px;
+    }
+
+    .no-wrap {
+      white-space: nowrap;
     }
 
     @keyframes fadeInOut {
       0% { opacity: 0; }
-      10% { opacity: 1; }
-      90% { opacity: 1; }
+      5% { opacity: 1; }
+      95% { opacity: 1; }
       100% { opacity: 0; }
     }
 
@@ -141,7 +145,7 @@
     <!-- Textos flotantes cercanos al logo -->
     <div class="floating-text text-top">Más de 200 empresas</div>
     <div class="floating-text text-bottom">Diferentes medios de comunicación</div>
-    <div class="floating-text text-left">Servicio 24/7 365 del año</div>
+    <div class="floating-text text-left no-wrap">Servicio 24/7 365 del año</div>
     <div class="floating-text text-right">Mesa de servicio</div>
     <div class="floating-text text-top-left">Tu tecnología en las mejores manos</div>
     <div class="floating-text text-bottom-right">Ayudando a recuperar tu experiencia con nosotros</div>
@@ -187,4 +191,3 @@
   </script>
 </body>
 </html>
-
