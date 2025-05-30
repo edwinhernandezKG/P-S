@@ -39,7 +39,7 @@
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      font-size: 30px;
+      font-size: 32px;
       z-index: 9999;
       opacity: 1;
       transition: opacity 0.5s ease;
@@ -51,9 +51,9 @@
     }
 
     .logo {
-      max-width: 160px;
-      margin-bottom: 10px;
-      border: none;
+      max-width: 200px;
+      margin-bottom: 20px;
+      z-index: 2;
     }
 
     .spinner {
@@ -64,6 +64,7 @@
       width: 40px;
       height: 40px;
       animation: spin 1s linear infinite;
+      z-index: 2;
     }
 
     @keyframes spin {
@@ -74,65 +75,55 @@
     .floating-text {
       position: absolute;
       color: white;
-      font-size: 34px;
-      opacity: 0;
-      animation: fadeInOut 6s ease-in-out infinite;
-      text-align: center;
-      width: 520px;
-    }
-
-    .no-wrap {
+      font-size: 42px;
       white-space: nowrap;
+      animation: localOrbit 4s linear infinite;
     }
 
-    @keyframes fadeInOut {
-      0% { opacity: 0; }
-      5% { opacity: 1; }
-      95% { opacity: 1; }
-      100% { opacity: 0; }
-    }
-
-    /* Posiciones cercanas al logo centrado */
+    /* Posiciones originales del texto alrededor del logo */
     .text-top {
-      top: 44%;
+      top: 30%;
       left: 50%;
-      transform: translate(-50%, -100%);
-      animation-delay: 0s;
+      transform: translate(-50%, -50%);
     }
 
     .text-bottom {
-      top: 56%;
+      top: 70%;
       left: 50%;
-      transform: translate(-50%, 0);
-      animation-delay: 1s;
+      transform: translate(-50%, -50%);
     }
 
     .text-left {
       top: 50%;
-      left: 45%;
-      transform: translate(-100%, -50%);
-      animation-delay: 2s;
+      left: 25%;
+      transform: translate(-50%, -50%);
     }
 
     .text-right {
       top: 50%;
-      left: 55%;
-      transform: translate(0, -50%);
-      animation-delay: 3s;
+      left: 75%;
+      transform: translate(-50%, -50%);
     }
 
     .text-top-left {
-      top: 46%;
-      left: 47%;
-      transform: translate(-100%, -100%);
-      animation-delay: 4s;
+      top: 35%;
+      left: 30%;
+      transform: translate(-50%, -50%);
     }
 
     .text-bottom-right {
-      top: 54%;
-      left: 53%;
-      transform: translate(0, 0);
-      animation-delay: 5s;
+      top: 65%;
+      left: 70%;
+      transform: translate(-50%, -50%);
+    }
+
+    /* Animación de órbita local (pequeña) */
+    @keyframes localOrbit {
+      0%   { transform: translate(-50%, -50%) translateX(0px) translateY(0px); }
+      25%  { transform: translate(-50%, -50%) translateX(10px) translateY(-10px); }
+      50%  { transform: translate(-50%, -50%) translateX(0px) translateY(-20px); }
+      75%  { transform: translate(-50%, -50%) translateX(-10px) translateY(-10px); }
+      100% { transform: translate(-50%, -50%) translateX(0px) translateY(0px); }
     }
   </style>
 </head>
@@ -142,13 +133,13 @@
     <div>Actualizando dashboard...</div>
     <div class="spinner"></div>
 
-    <!-- Textos flotantes cercanos al logo -->
+    <!-- Textos orbitando localmente alrededor de sus posiciones originales -->
     <div class="floating-text text-top">Más de 200 empresas</div>
     <div class="floating-text text-bottom">Diferentes medios de comunicación</div>
-    <div class="floating-text text-left no-wrap">Servicio 24/7 365 del año</div>
+    <div class="floating-text text-left">Servicio 24/7 365 del año</div>
     <div class="floating-text text-right">Mesa de servicio</div>
     <div class="floating-text text-top-left">Tu tecnología en las mejores manos</div>
-    <div class="floating-text text-bottom-right">Ayudando a recuperar tu experiencia con nosotros</div>
+    <div class="floating-text text-bottom-right">Ayudando a recuperar tu experiencia</div>
   </div>
 
   <iframe id="dashboardFrame"></iframe>
@@ -172,7 +163,7 @@
       frame.onload = () => {
         setTimeout(() => {
           loadingScreen.classList.add("hidden");
-        }, 8000); // 8 segundos de carga
+        }, 8000);
       };
 
       frame.src = dashboards[index] + "&cachebuster=" + new Date().getTime();
@@ -184,10 +175,11 @@
       setInterval(() => {
         current = (current + 1) % dashboards.length;
         loadDashboard(current);
-      }, 600000); // Cada 10 minutos
+      }, 600000); // cada 10 minutos
     }
 
     startRotation();
   </script>
 </body>
 </html>
+
