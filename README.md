@@ -52,7 +52,7 @@
 
     .logo {
       max-width: 160px;
-      margin-bottom: 1px;
+      margin-bottom: 10px;
       border: none;
     }
 
@@ -74,9 +74,11 @@
     .floating-text {
       position: absolute;
       color: white;
-      font-size: 20px;
+      font-size: 18px;
       opacity: 0;
       animation: fadeInOut 6s ease-in-out infinite;
+      text-align: center;
+      width: 180px;
     }
 
     @keyframes fadeInOut {
@@ -86,12 +88,13 @@
       100% { opacity: 0; }
     }
 
-    .top-left    { top: 10%;  left: 10%;  animation-delay: 0s; }
-    .top-right   { top: 10%;  right: 10%; animation-delay: 1s; }
-    .bottom-left { bottom: 10%; left: 10%; animation-delay: 2s; }
-    .bottom-right{ bottom: 10%; right: 10%; animation-delay: 3s; }
-    .center-left { top: 50%; left: 5%; transform: translateY(-50%); animation-delay: 4s; }
-    .center-right{ top: 50%; right: 5%; transform: translateY(-50%); animation-delay: 5s; }
+    /* Posiciones más cercanas al logo */
+    .text-top { top: 30%; left: 50%; transform: translateX(-50%); animation-delay: 0s; }
+    .text-bottom { top: 70%; left: 50%; transform: translateX(-50%); animation-delay: 1s; }
+    .text-left { top: 50%; left: 25%; transform: translateY(-50%); animation-delay: 2s; }
+    .text-right { top: 50%; right: 25%; transform: translateY(-50%); animation-delay: 3s; }
+    .text-top-left { top: 35%; left: 30%; animation-delay: 4s; }
+    .text-bottom-right { top: 65%; right: 30%; animation-delay: 5s; }
   </style>
 </head>
 <body>
@@ -100,13 +103,13 @@
     <div>Actualizando dashboard...</div>
     <div class="spinner"></div>
 
-    <!-- Frases flotantes -->
-    <div class="floating-text top-left">Más de 200 empresas</div>
-    <div class="floating-text top-right">Diferentes medios de comunicación</div>
-    <div class="floating-text bottom-left">Servicio 24/7 365 del año</div>
-    <div class="floating-text bottom-right">Mesa de servicio</div>
-    <div class="floating-text center-left">Tu tecnología en las mejores manos</div>
-    <div class="floating-text center-right">Ayudando a recuperar tu experiencia con nosotros</div>
+    <!-- Frases flotantes, ahora más cerca del logo -->
+    <div class="floating-text text-top">Más de 200 empresas</div>
+    <div class="floating-text text-bottom">Diferentes medios de comunicación</div>
+    <div class="floating-text text-left">Servicio 24/7 365 del año</div>
+    <div class="floating-text text-right">Mesa de servicio</div>
+    <div class="floating-text text-top-left">Tu tecnología en las mejores manos</div>
+    <div class="floating-text text-bottom-right">Ayudando a recuperar tu experiencia con nosotros</div>
   </div>
 
   <iframe id="dashboardFrame"></iframe>
@@ -130,7 +133,7 @@
       frame.onload = () => {
         setTimeout(() => {
           loadingScreen.classList.add("hidden");
-        }, 8000); // Mantener la pantalla de carga por 8 segundos
+        }, 8000); // 8 segundos de carga
       };
 
       frame.src = dashboards[index] + "&cachebuster=" + new Date().getTime();
@@ -149,3 +152,4 @@
   </script>
 </body>
 </html>
+
