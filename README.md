@@ -54,7 +54,6 @@
       max-width: 160px;
       margin-bottom: 1px;
       border: none;
-      outline: none;
     }
 
     .spinner {
@@ -71,6 +70,28 @@
       0% { transform: rotate(0deg); }
       100% { transform: rotate(360deg); }
     }
+
+    .floating-text {
+      position: absolute;
+      color: white;
+      font-size: 20px;
+      opacity: 0;
+      animation: fadeInOut 6s ease-in-out infinite;
+    }
+
+    @keyframes fadeInOut {
+      0% { opacity: 0; }
+      10% { opacity: 1; }
+      90% { opacity: 1; }
+      100% { opacity: 0; }
+    }
+
+    .top-left    { top: 10%;  left: 10%;  animation-delay: 0s; }
+    .top-right   { top: 10%;  right: 10%; animation-delay: 1s; }
+    .bottom-left { bottom: 10%; left: 10%; animation-delay: 2s; }
+    .bottom-right{ bottom: 10%; right: 10%; animation-delay: 3s; }
+    .center-left { top: 50%; left: 5%; transform: translateY(-50%); animation-delay: 4s; }
+    .center-right{ top: 50%; right: 5%; transform: translateY(-50%); animation-delay: 5s; }
   </style>
 </head>
 <body>
@@ -78,6 +99,14 @@
     <img class="logo" src="https://i.ibb.co/kgSt3mNr/c947d0-eadc0d6e3f3c4184a5f64991dc4338a1-mv2-removebg-preview-1.png" alt="Logo">
     <div>Actualizando dashboard...</div>
     <div class="spinner"></div>
+
+    <!-- Frases flotantes -->
+    <div class="floating-text top-left">Más de 200 empresas</div>
+    <div class="floating-text top-right">Diferentes medios de comunicación</div>
+    <div class="floating-text bottom-left">Servicio 24/7 365 del año</div>
+    <div class="floating-text bottom-right">Mesa de servicio</div>
+    <div class="floating-text center-left">Tu tecnología en las mejores manos</div>
+    <div class="floating-text center-right">Ayudando a recuperar tu experiencia con nosotros</div>
   </div>
 
   <iframe id="dashboardFrame"></iframe>
@@ -101,7 +130,7 @@
       frame.onload = () => {
         setTimeout(() => {
           loadingScreen.classList.add("hidden");
-        }, 8000); // Mostrar pantalla de carga por 8 segundos
+        }, 8000); // Mantener la pantalla de carga por 8 segundos
       };
 
       frame.src = dashboards[index] + "&cachebuster=" + new Date().getTime();
@@ -120,5 +149,3 @@
   </script>
 </body>
 </html>
-
-
